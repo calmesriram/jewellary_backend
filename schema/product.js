@@ -8,9 +8,8 @@ productid: {
   'default': shortid.generate
 },
 productname:String,
-rate:Number,
-qty:Number,
 date:String,
 });
   module.exports = mongoose.model('Product', productSchema);
 
+ 

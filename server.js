@@ -20,7 +20,7 @@ app.listen("3000",()=>{
 mongoose.connection.on('connected', function () {
     console.log('Connection to Mongo established.');
     if (mongoose.connection.client.s.url.startsWith('mongodb+srv')) {
-        mongoose.connection.db = mongoose.connection.client.db("myapp");
+        mongoose.connection.db = mongoose.connection.client.db("myapp1");
     }
 });
 mongoose.connect("mongodb+srv://nillafruitssalem:nillafruitssalem@cluster0-qp8wu.mongodb.net/",
