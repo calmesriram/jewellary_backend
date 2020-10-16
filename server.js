@@ -23,11 +23,11 @@ app.listen(port,()=>{
 mongoose.connection.on('connected', function () {
     console.log('Connection to Mongo established.');
     if (mongoose.connection.client.s.url.startsWith('mongodb+srv')) {
-        mongoose.connection.db = mongoose.connection.client.db("myapp1");
+        mongoose.connection.db = mongoose.connection.client.db("myapp2");
     }
 });
 mongoose.connect("mongodb+srv://nillafruitssalem:nillafruitssalem@cluster0-qp8wu.mongodb.net/",
- { dbName: "myapp", useCreateIndex: true, useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true }).catch(err => {
+ { dbName: "myapp2", useCreateIndex: true, useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true }).catch(err => {
     if (err) {
 
         console.log("TEST", err)
@@ -35,16 +35,75 @@ mongoose.connect("mongodb+srv://nillafruitssalem:nillafruitssalem@cluster0-qp8wu
     }
 })
 
-const Schema = mongoose.Schema;
 var Product = require('./schema/product')
 var Customer = require('./schema/customer')
 var Bill = require('./schema/bill');
-const bill = require('./schema/bill');
+var Saree = require('./schema/sareeproduct');
 
 app.get("/",(req,res)=>{
     res.send("Connected");
     res.end();
 })
+
+
+// sareeproduct
+app.post("/Saree",(req,res)=>{
+    const saree = new Saree({   
+sareeproductname:req.body.sareeproductname,
+sareeqty:req.body.sareeqty,
+sareerate: req.body.sareerate,
+sareecode: req.body.sareecode,   
+     date: req.body.date,
+     
+    })
+    saree.save((err,data)=>{
+        if(err){
+            console.log(err,"while saving saree");
+            return res.json({status:false,msg:err})
+        }
+        if(!err){           
+            return res.json({status:true,msg:"Record created successfull"})
+        }
+    })
+ })
+ 
+ app.get("/Saree",(req,res)=>{    
+    Saree.find({},(err,data)=>{
+        if(err){           
+            return res.json({status:false,msg:err})
+        }
+        if(!err){       
+            return res.json({status:true,data:data})
+        }
+    })
+ })
+
+ 
+app.put("/Saree/:sareecode",(req,res)=>{     
+    Saree.findOneAndUpdate(
+        {"sareecode":req.params.sareecode},
+        {  "sareeproductname":req.body.sareeproductname,
+            "sareeqty":req.body.sareeqty,
+            "sareerate": req.body.sareerate,
+             "date": req.body.date
+        }).then(data =>{
+            console.log(data)
+            return res.json({status:true,msg:"Updated successfully"})
+        }).catch(err =>{            
+            return res.json({status:false,msg:err})
+        })   
+ })
+
+ app.delete("/Saree/:sareecode",(req,res)=>{     
+     console.log(req.params.sareecode)   
+    Saree.findOneAndDelete(
+        {"sareecode":req.params.sareecode}).then(data =>{
+            return res.json({status:true,msg:"Deleted successfully"})
+        }).catch(err =>{            
+            return res.json({status:false,msg:err})
+        })   
+ })
+
 // customer
 app.post("/Customer",(req,res)=>{
    const customer = new Customer({    
@@ -101,9 +160,9 @@ app.put("/Customer/:customerid",(req,res)=>{
             date: req.body.date,
             dob: req.body.dob
         }).then(data =>{
-            return res.json({status:false,msg:"Updated successfully"})
+            return res.json({status:true,msg:"Updated successfully"})
         }).catch(err =>{            
-            return res.json({status:true,msg:err})
+            return res.json({status:false,msg:err})
         })   
  })
 
