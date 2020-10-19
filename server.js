@@ -52,7 +52,8 @@ app.post("/Saree",(req,res)=>{
 sareeproductname:req.body.sareeproductname,
 sareeqty:req.body.sareeqty,
 sareerate: req.body.sareerate,
-sareecode: req.body.sareecode,   
+sareecode: req.body.sareecode,  
+sareehsncode: req.body.sareehsncode,   
      date: req.body.date,
      
     })
@@ -85,6 +86,7 @@ app.put("/Saree/:sareecode",(req,res)=>{
         {  "sareeproductname":req.body.sareeproductname,
             "sareeqty":req.body.sareeqty,
             "sareerate": req.body.sareerate,
+            "sareehsncode": req.body.sareehsncode,   
              "date": req.body.date
         }).then(data =>{
             console.log(data)

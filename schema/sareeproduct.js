@@ -12,6 +12,7 @@ sareeqty:Number,
 sareerate:Number,
 sareecode:String,
 date:String,
+sareehsncode:String,
 });
   module.exports = mongoose.model('Sareeproduct', sareeproductSchema);
 
