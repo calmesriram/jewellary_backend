@@ -150,7 +150,9 @@ app.put("/Saree/:sareecode",(req,res)=>{
 
 // saree bill
  app.post("/Sareebill",(req,res)=>{
-
+let temparray = [];
+temparray.length = 0;
+temparray = req.body.tabledatadet
     // console.log("***",req.body);
     // return res.end();
     const sareebill = new Sareebill({   
@@ -178,8 +180,30 @@ app.put("/Saree/:sareecode",(req,res)=>{
             console.log(err,"while saving saree");
             return res.json({status:false,msg:err})
         }
-        if(!err){           
-            return res.json({status:true,msg:"Record created successfull"})
+        if(!err){  
+            // console.log("length 1",temparray.length)
+            let count = 0;
+            temparray.forEach(async item =>{
+                Saree.find({"sareeproductid": await item.sareeproductid})
+                .then(async(res1) =>{
+                        Saree.findOneAndUpdate(
+                            {"sareeproductid":res1[0].sareeproductid},
+                            {
+                                "sareeqty":await res1[0].sareeqty - await item.collected.qty
+                            }).then(data =>{
+                                count++;
+                                // console.log("count",count)
+                                if(temparray.length == count){
+                                    return res.json({status:true,msg:"Record created successfull"})
+        
+                                }   
+                                  
+                          }).catch(err =>{            
+                                return res.json({status:false,msg:err})
+                            })                
+                })            
+            })    
+            
         }
     })
  })
