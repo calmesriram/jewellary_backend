@@ -39,6 +39,7 @@ var Product = require('./schema/product')
 var Customer = require('./schema/customer')
 var Bill = require('./schema/bill');
 var Saree = require('./schema/sareeproduct');
+var Sareebill = require('./schema/sareeproductbill');
 
 app.get("/",(req,res)=>{
     res.send("Connected");
@@ -105,6 +106,84 @@ app.put("/Saree/:sareecode",(req,res)=>{
             return res.json({status:false,msg:err})
         })   
  })
+
+ app.get("/Sareebillcount",(req,res)=>{    
+    Sareebill.find({},(err,data)=>{
+        if(err){           
+            return res.json({status:false,msg:err})
+        }
+        if(!err){       
+            return res.json({status:true,count:data.length})
+        }
+    })
+ })
+ app.get("/Sareeproductcount",(req,res)=>{    
+    Saree.find({},(err,data)=>{
+        if(err){           
+            return res.json({status:false,msg:err})
+        }
+        if(!err){       
+            return res.json({status:true,count:data.length})
+        }
+    })
+ })
+ app.get("/Customercount",(req,res)=>{    
+    Customer.find({},(err,data)=>{
+        if(err){           
+            return res.json({status:false,msg:err})
+        }
+        if(!err){       
+            return res.json({status:true,count:data.length})
+        }
+    })
+ })
+ app.get("/Productcount",(req,res)=>{    
+    Product.find({},(err,data)=>{
+        if(err){           
+            return res.json({status:false,msg:err})
+        }
+        if(!err){       
+            return res.json({status:true,count:data.length})
+        }
+    })
+ })
+
+// saree bill
+ app.post("/Sareebill",(req,res)=>{
+
+    // console.log("***",req.body);
+    // return res.end();
+    const sareebill = new Sareebill({   
+          cust_name:req.body.customerdetails.customername,
+          cust_phonenumber:req.body.customerdetails.phoneumber,
+          cust_address:req.body.customerdetails.address,
+          cust_emailid:req.body.customerdetails.emailid,
+          cust_adhaarid:req.body.customerdetails.adhaarid,
+          cust_date:req.body.customerdetails.date,
+          cust_customerid:req.body.customerdetails.customerid,
+          cust_tabledatadet:req.body.tabledatadet,
+          custtaxdet_totalamount:req.body.tax_details.totamt,
+          custtaxdet_taxamount:req.body.tax_details.taxamt,
+          custtaxdet_totaltaxpercent:req.body.tax_details.tottaxpercent,
+          custtaxdet_cgsttaxamount:req.body.tax_details.cgsttax,
+          custtaxdet_sgsttaxamount:req.body.tax_details.sgsttax,
+          custtaxdet_totalwithtax:req.body.tax_details.totamtwithtax,
+          custtaxdet_roundoff:req.body.tax_details.roundoff,
+          cust_invoicenumber:req.body.invoicenumber,
+          cust_invoicedate:req.body.invoicedate
+     
+    })
+    sareebill.save((err,data)=>{
+        if(err){
+            console.log(err,"while saving saree");
+            return res.json({status:false,msg:err})
+        }
+        if(!err){           
+            return res.json({status:true,msg:"Record created successfull"})
+        }
+    })
+ })
+ 
 
 // customer
 app.post("/Customer",(req,res)=>{
@@ -240,3 +319,5 @@ app.get("/Bill",(req,res)=>{
     })
     
  }
+
+
