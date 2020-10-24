@@ -148,6 +148,64 @@ app.put("/Saree/:sareecode",(req,res)=>{
     })
  })
 
+ // product bill
+ app.post("/Productbill",(req,res)=>{
+     console.log(req.body.tax_details_addtional_bill_1,"****")
+        const bill = new Bill({   
+              name:req.body.customerdetails.customername,
+              phonenumber:req.body.customerdetails.phoneumber,
+              address:req.body.customerdetails.address,
+              emailid:req.body.customerdetails.emailid,
+              adhaarid:req.body.customerdetails.adhaarid,
+              date:req.body.customerdetails.date,
+              customerid:req.body.customerdetails.customerid,
+              tabledatadet:req.body.tabledatadet,
+              taxdet_totalamount:req.body.tax_details_addtional_bill_1['totamt'],
+              taxdet_taxamount:req.body.tax_details_addtional_bill_1.taxamt,
+              taxdet_totaltaxpercent:req.body.tax_details_addtional_bill_1.tottaxpercent,
+              taxdet_cgsttaxamount:req.body.tax_details_addtional_bill_1.cgsttax,
+              taxdet_sgsttaxamount:req.body.tax_details_addtional_bill_1.sgsttax,
+              taxdet_totalwithtax:req.body.tax_details_addtional_bill_1.totamtwithtax,
+              taxdet_roundoff:req.body.tax_details_addtional_bill_1.roundoff,
+              invoicenumber:req.body.invoiceno,
+              invoicedate:req.body.invoicedate
+         
+        })
+        bill.save((err,data)=>{
+            if(err){
+                console.log(err,"while saving saree");
+                return res.json({status:false,msg:err})
+            }
+            if(!err){  
+                 return res.json({status:true,msg:"Record created successfull"})
+                // console.log("length 1",temparray.length)
+                // let count = 0;
+                // temparray.forEach(async item =>{
+                //     Saree.find({"sareeproductid": await item.sareeproductid})
+                //     .then(async(res1) =>{
+                //             Saree.findOneAndUpdate(
+                //                 {"sareeproductid":res1[0].sareeproductid},
+                //                 {
+                //                     "sareeqty":await res1[0].sareeqty - await item.collected.qty
+                //                 }).then(data =>{
+                //                     count++;
+                //                     // console.log("count",count)
+                //                     if(temparray.length == count){
+                //                         return res.json({status:true,msg:"Record created successfull"})
+            
+                //                     }   
+                                      
+                //               }).catch(err =>{            
+                //                     return res.json({status:false,msg:err})
+                //                 })                
+                //     })            
+                // })    
+                
+            }
+        })
+     })
+
+     
 // saree bill
  app.post("/Sareebill",(req,res)=>{
 let temparray = [];
@@ -156,7 +214,7 @@ temparray = req.body.tabledatadet
     // console.log("***",req.body);
     // return res.end();
     const sareebill = new Sareebill({   
-          cust_name:req.body.customerdetails.customername,
+          name:req.body.customerdetails.customername,
           cust_phonenumber:req.body.customerdetails.phoneumber,
           cust_address:req.body.customerdetails.address,
           cust_emailid:req.body.customerdetails.emailid,
@@ -329,7 +387,7 @@ app.put("/Product/:productid",(req,res)=>{
 
 app.get("/Bill",(req,res)=>{  
   bill_count().then(data =>{      
-    return res.json({"count":data.length})
+    return res.json({status:true,"count":data.length})
   })
 })
  function bill_count(){
