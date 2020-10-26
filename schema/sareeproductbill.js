@@ -22,7 +22,9 @@ const sareeproductbillSchema = Schema({
   custtaxdet_totalwithtax:Number,
   custtaxdet_roundoff:Number,
   cust_invoicenumber:Number,
-  cust_invoicedate:String
+  cust_invoicedate:String,
+  cust_invoicemonth:String,
+  cust_invoiceyear:String
 
 });
   module.exports = mongoose.model('SareeBill', sareeproductbillSchema);

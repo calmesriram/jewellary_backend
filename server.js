@@ -230,7 +230,9 @@ temparray = req.body.tabledatadet
           custtaxdet_totalwithtax:req.body.tax_details.totamtwithtax,
           custtaxdet_roundoff:req.body.tax_details.roundoff,
           cust_invoicenumber:req.body.invoicenumber,
-          cust_invoicedate:req.body.invoicedate
+          cust_invoicedate:req.body.invoicedate,
+          cust_invoicemonth:req.body.invoicemonth,
+  cust_invoiceyear:req.body.invoiceyear,
      
     })
     sareebill.save((err,data)=>{

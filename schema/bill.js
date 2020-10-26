@@ -22,7 +22,9 @@ const billSchema = Schema({
   taxdet_totalwithtax:Number,
   taxdet_roundoff:Number,
   invoicenumber:Number,
-  invoicedate:String
+  invoicedate:String,
+  invoicemonth:String,
+  invoiceyear:String
 });
   module.exports = mongoose.model('Bill', billSchema);
 
