@@ -150,7 +150,7 @@ app.put("/Saree/:sareecode",(req,res)=>{
 
  // product bill
  app.post("/Productbill",(req,res)=>{
-     console.log(req.body.tax_details_addtional_bill_1,"****")
+     console.log(req.body.tax_details,"****")
         const bill = new Bill({   
               name:req.body.customerdetails.customername,
               phonenumber:req.body.customerdetails.phoneumber,
@@ -160,15 +160,17 @@ app.put("/Saree/:sareecode",(req,res)=>{
               date:req.body.customerdetails.date,
               customerid:req.body.customerdetails.customerid,
               tabledatadet:req.body.tabledatadet,
-              taxdet_totalamount:req.body.tax_details_addtional_bill_1['totamt'],
-              taxdet_taxamount:req.body.tax_details_addtional_bill_1.taxamt,
-              taxdet_totaltaxpercent:req.body.tax_details_addtional_bill_1.tottaxpercent,
-              taxdet_cgsttaxamount:req.body.tax_details_addtional_bill_1.cgsttax,
-              taxdet_sgsttaxamount:req.body.tax_details_addtional_bill_1.sgsttax,
-              taxdet_totalwithtax:req.body.tax_details_addtional_bill_1.totamtwithtax,
-              taxdet_roundoff:req.body.tax_details_addtional_bill_1.roundoff,
+              taxdet_totalamountbeforetax:req.body.tax_details.taxdet_totalamountbeforetax,
+                taxdet_totalamountaftertax:req.body.tax_details.taxdet_totalamountaftertax,
+                taxdet_totalamountoftax:req.body.tax_details.taxdet_totalamountoftax,
+                taxdet_totalamountofsgsttax:req.body.tax_details.taxdet_totalamountofsgsttax,
+                taxdet_totalamountofcgsttax:req.body.tax_details.taxdet_totalamountofcgsttax,
+                taxdet_taxpercenttage:req.body.tax_details.taxdet_taxpercenttage,
               invoicenumber:req.body.invoiceno,
-              invoicedate:req.body.invoicedate
+              invoicedate:req.body.invoicedate,
+              invoicemonth:req.body.invoicemonth,
+              invoiceyear:req.body.invoiceyear,
+              taxdet_role:req.body.taxdet_role
          
         })
         bill.save((err,data)=>{
@@ -177,29 +179,7 @@ app.put("/Saree/:sareecode",(req,res)=>{
                 return res.json({status:false,msg:err})
             }
             if(!err){  
-                 return res.json({status:true,msg:"Record created successfull"})
-                // console.log("length 1",temparray.length)
-                // let count = 0;
-                // temparray.forEach(async item =>{
-                //     Saree.find({"sareeproductid": await item.sareeproductid})
-                //     .then(async(res1) =>{
-                //             Saree.findOneAndUpdate(
-                //                 {"sareeproductid":res1[0].sareeproductid},
-                //                 {
-                //                     "sareeqty":await res1[0].sareeqty - await item.collected.qty
-                //                 }).then(data =>{
-                //                     count++;
-                //                     // console.log("count",count)
-                //                     if(temparray.length == count){
-                //                         return res.json({status:true,msg:"Record created successfull"})
-            
-                //                     }   
-                                      
-                //               }).catch(err =>{            
-                //                     return res.json({status:false,msg:err})
-                //                 })                
-                //     })            
-                // })    
+                 return res.json({status:true,msg:"Record created successfull"})               
                 
             }
         })
