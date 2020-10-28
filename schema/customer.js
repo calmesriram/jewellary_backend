@@ -12,7 +12,8 @@ const customerSchema = Schema({
   },
   adhaarid:String,
   date:String,
-  dob:String
+  dob:String,
+  partygstin:String
 });
   module.exports = mongoose.model('Customer', customerSchema);
 

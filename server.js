@@ -258,7 +258,8 @@ app.post("/Customer",(req,res)=>{
     emailid: req.body.emailid,   
     adhaarid: req.body.adhaarid,
     date: req.body.date,
-    dob: req.body.dob
+    dob: req.body.dob,
+    partygstin:req.body.partygstin
    })
    customer.save((err,data)=>{
        if(err){
