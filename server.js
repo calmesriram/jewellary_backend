@@ -150,7 +150,7 @@ app.put("/Saree/:sareecode",(req,res)=>{
 //  invoice month and year of product
 
  app.post("/Productinvoicemonthandyear",(req,res)=>{    
-    Bill.find({"invoicemonth":req.body.month,"invoiceyear":req.body.year},(err,data)=>{
+    Bill.find({"invoicemonth":req.body.invoicemonth,"invoiceyear":req.body.invoiceyear},(err,data)=>{
         if(err){           
             return res.json({status:false,msg:err})
         }
@@ -173,7 +173,7 @@ app.post("/Productinvoicedate",(req,res)=>{
  //  invoice month and year of saree product
 
  app.post("/Productsareeinvoicemonthandyear",(req,res)=>{    
-    Sareebill.find({"cust_invoicemonth":req.body.month,"cust_invoiceyear":req.body.year},(err,data)=>{
+    Sareebill.find({"cust_invoicemonth":req.body.cust_invoicemonth,"cust_invoiceyear":req.body.cust_invoiceyear},(err,data)=>{
         if(err){           
             return res.json({status:false,msg:err})
         }
