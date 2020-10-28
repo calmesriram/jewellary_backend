@@ -150,7 +150,7 @@ app.put("/Saree/:sareecode",(req,res)=>{
 
  // product bill
  app.post("/Productbill",(req,res)=>{
-     console.log(req.body.tax_details,"****")
+     console.log(req.body,"****************************")
         const bill = new Bill({   
               name:req.body.customerdetails.customername,
               phonenumber:req.body.customerdetails.phoneumber,
@@ -314,6 +314,7 @@ app.put("/Customer/:customerid",(req,res)=>{
 
  // product
 app.post("/Product",(req,res)=>{ 
+    console.log(req.body ,"**************************")
    const _Product = new Product({      
     productname:req.body.productname,
     rate:req.body.rate,
