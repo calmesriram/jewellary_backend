@@ -247,6 +247,7 @@ temparray = req.body.tabledatadet
           cust_address:req.body.customerdetails.address,
           cust_emailid:req.body.customerdetails.emailid,
           cust_adhaarid:req.body.customerdetails.adhaarid,
+          cust_partygstin:req.body.customerdetails.partygstin,
           cust_date:req.body.customerdetails.date,
           cust_customerid:req.body.customerdetails.customerid,
           cust_tabledatadet:req.body.tabledatadet,

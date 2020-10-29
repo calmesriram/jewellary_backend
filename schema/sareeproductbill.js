@@ -24,7 +24,8 @@ const sareeproductbillSchema = Schema({
   cust_invoicenumber:Number,
   cust_invoicedate:String,
   cust_invoicemonth:String,
-  cust_invoiceyear:String
+  cust_invoiceyear:String,
+  cust_partygstin:String
 
 });
   module.exports = mongoose.model('SareeBill', sareeproductbillSchema);
