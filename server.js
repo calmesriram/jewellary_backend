@@ -196,13 +196,14 @@ app.post("/Productsareeinvoicedate",(req,res)=>{
 
  // product bill
  app.post("/Productbill",(req,res)=>{
-     console.log(req.body,"****************************")
+    //  console.log(req.body,"****************************")
         const bill = new Bill({   
               name:req.body.customerdetails.customername,
               phonenumber:req.body.customerdetails.phoneumber,
               address:req.body.customerdetails.address,
               emailid:req.body.customerdetails.emailid,
               adhaarid:req.body.customerdetails.adhaarid,
+              partygstin:req.body.customerdetails.partygstin,
               date:req.body.customerdetails.date,
               customerid:req.body.customerdetails.customerid,
               tabledatadet:req.body.tabledatadet,
@@ -217,6 +218,7 @@ app.post("/Productsareeinvoicedate",(req,res)=>{
               invoicemonth:req.body.invoicemonth,
               invoiceyear:req.body.invoiceyear,
               taxdet_role:req.body.taxdet_role
+              
          
         })
         bill.save((err,data)=>{

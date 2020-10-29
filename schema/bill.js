@@ -24,7 +24,8 @@ const billSchema = Schema({
   invoicenumber:Number,
   invoicedate:String,
   invoicemonth:String,
-  invoiceyear:String
+  invoiceyear:String,
+  partygstin:String
 });
   module.exports = mongoose.model('Bill', billSchema);
 
