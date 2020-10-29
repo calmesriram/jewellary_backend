@@ -237,7 +237,7 @@ app.post("/Productsareeinvoicedate",(req,res)=>{
 let temparray = [];
 temparray.length = 0;
 temparray = req.body.tabledatadet
-    // console.log("***",req.body);
+    // console.log("***",req.body.invoiceno);
     // return res.end();
     const sareebill = new Sareebill({   
         cust_name:req.body.customerdetails.customername,
@@ -255,7 +255,7 @@ temparray = req.body.tabledatadet
           custtaxdet_sgsttaxamount:req.body.tax_details.sgsttax,
           custtaxdet_totalwithtax:req.body.tax_details.totamtwithtax,
           custtaxdet_roundoff:req.body.tax_details.roundoff,
-          cust_invoicenumber:req.body.invoicenumber,
+          cust_invoicenumber:req.body.invoiceno,
           cust_invoicedate:req.body.invoicedate,
           cust_invoicemonth:req.body.invoicemonth,
   cust_invoiceyear:req.body.invoiceyear,
