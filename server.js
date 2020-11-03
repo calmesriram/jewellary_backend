@@ -23,11 +23,11 @@ app.listen(port,()=>{
 mongoose.connection.on('connected', function () {
     console.log('Connection to Mongo established.');
     if (mongoose.connection.client.s.url.startsWith('mongodb+srv')) {
-        mongoose.connection.db = mongoose.connection.client.db("myapp2");
+        mongoose.connection.db = mongoose.connection.client.db("shreejeyamsilver2020");
     }
 });
-mongoose.connect("mongodb+srv://nillafruitssalem:nillafruitssalem@cluster0-qp8wu.mongodb.net/",
- { dbName: "myapp2", useCreateIndex: true, useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true }).catch(err => {
+mongoose.connect("mongodb+srv://bujuki18:bujuki18@cluster0.ejcez.mongodb.net/?retryWrites=true&w=majority",
+ { dbName: "shreejeyamsilver2020", useCreateIndex: true, useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true }).catch(err => {
     if (err) {
 
         console.log("TEST", err)
@@ -40,6 +40,7 @@ var Customer = require('./schema/customer')
 var Bill = require('./schema/bill');
 var Saree = require('./schema/sareeproduct');
 var Sareebill = require('./schema/sareeproductbill');
+const { json } = require('body-parser');
 
 app.get("/",(req,res)=>{
     res.send("Connected");
@@ -321,6 +322,33 @@ app.post("/Customer",(req,res)=>{
    })
 })
 
+// customer
+app.post("/Customerpurchasedetails",(req,res)=>{
+    let billdata= {};
+    let reqbodydata = req.body;
+    Bill.find(reqbodydata)
+    .then(async (bill) =>{
+        // console.log(bill)
+        billdata["bill"] = await bill;
+    })
+    .then(() =>{
+        Sareebill.find(reqbodydata)
+        .then(async (saree)=>{
+            console.log(await saree)
+            billdata["saree"] =await saree;
+        }).catch(err =>{
+            return res.json({status:false,msg:err})
+        })
+    })
+    .then(() =>{
+        return res.json({status:true,data:billdata})
+    })
+    .catch(e =>{
+        return res.json({status:false,msg:e})
+    })
+ })
+
+ 
 app.get("/Customer",(req,res)=>{    
    Customer.find({},(err,data)=>{
        if(err){           
