@@ -322,32 +322,26 @@ app.post("/Customer",(req,res)=>{
    })
 })
 
-// customer
-app.post("/Customerpurchasedetails",(req,res)=>{
-    let billdata= {};
-    let reqbodydata = req.body;
-    Bill.find(reqbodydata)
-    .then(async (bill) =>{
-        // console.log(bill)
-        billdata["bill"] = await bill;
-    })
-    .then(() =>{
-        Sareebill.find(reqbodydata)
-        .then(async (saree)=>{
-            console.log(await saree)
-            billdata["saree"] =await saree;
-        }).catch(err =>{
-            return res.json({status:false,msg:err})
-        })
-    })
-    .then(() =>{
-        return res.json({status:true,data:billdata})
+// bill purchase details by customer name
+app.post("/Customerpurchasbilldetails",(req,res)=>{
+    Bill.find(req.body)
+    .then(async (bill) =>{        
+        return res.json({status:true,data:await bill})
     })
     .catch(e =>{
         return res.json({status:false,msg:e})
     })
  })
-
+//saree bill purchase details by customer name
+app.post("/Customerpurchasbillsareedetails",(req,res)=>{
+    Sareebill.find(req.body)
+    .then(async (sareebill) =>{        
+        return res.json({status:true,data:await sareebill})
+    })
+    .catch(e =>{
+        return res.json({status:false,msg:e})
+    })
+ })
  
 app.get("/Customer",(req,res)=>{    
    Customer.find({},(err,data)=>{
