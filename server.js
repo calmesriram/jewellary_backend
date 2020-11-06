@@ -322,11 +322,52 @@ app.post("/Customer",(req,res)=>{
    })
 })
 
+// function test(){
+//     Bill.find({"name":"Amar"})
+//     .then(async (bill) =>{  
+//         let data=[];
+//         for(var i of await bill){
+//             let payload ={
+//                 total:"",
+//                 invoicedate:"",
+//                 all:[]
+//             }
+//             payload.total =await i.taxdet_totalamountaftertax;
+//             payload.invoicedate =await i.invoicedate
+//             // console.log(i)
+//             for(var j of i.tabledatadet){
+//                 payload.all.push(j);
+//             }
+//             data.push(payload);            
+//         }
+//         console.log(data)
+//     })
+//     .catch(e =>{
+// console.log(e)
+//     })
+// }
+// test();
 // bill purchase details by customer name
 app.post("/Customerpurchasbilldetails",(req,res)=>{
     Bill.find(req.body)
-    .then(async (bill) =>{        
-        return res.json({status:true,data:await bill})
+    .then(async (bill) =>{  
+        let data=[];
+        for(var i of await bill){
+            let payload ={
+                total:"",
+                invoicedate:"",
+                all:[]
+            }
+            payload.total =await i.taxdet_totalamountaftertax;
+            payload.invoicedate =await i.invoicedate
+            // console.log(i)
+            for(var j of i.tabledatadet){
+                payload.all.push(j);
+            }
+            data.push(payload);            
+        }
+        // console.log(data)      
+        return res.json({status:true,data:data})
     })
     .catch(e =>{
         return res.json({status:false,msg:e})
